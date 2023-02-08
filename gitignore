@@ -1,0 +1,8 @@
+#ignore ALL .out files
+*.o
+*.out
+*.gitignore
+*.vscode
+.DS_Store
+*.a
+
