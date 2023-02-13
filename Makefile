@@ -6,31 +6,38 @@
 #    By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 08:24:14 by etavera-          #+#    #+#              #
-#    Updated: 2023/02/08 10:02:59 by etavera-         ###   ########.fr        #
+#    Updated: 2023/02/13 08:27:36 by etavera-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			=	ft_printf.c
-OBJS			= $(SRCS:.c=.o)
+NAME			=	libftprintf.a
+LIBFT_DIR		=	libft
+LIBFT			=	$(LIBFT_DIR)/libft.a
+CC				= 	cc
+CFLAGS			= 	-Wall -Wextra -Werror
 
-CC				= cc
-RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror
+SRC			=	libftprintf.c
 
-NAME			= libftprint.a
+OBJS			=	$(SRCS:.c=.o)
 
-all:			$(NAME)
+all				:	$(NAME)
 
-$(NAME):		$(OBJS)
-				ar rcs $(NAME) $(OBJS)
+$(NAME)			:	$(LIBFT) $(OBJS)
+					cp $(LIBFT) $(NAME)
+					ar -rcs $(NAME) $(OBJS)
 
-clean:
-				$(RM) $(OBJS)
+$(LIBFT)		:
+					make -C $(LIBFT_DIR) all
 
-fclean:			clean
-				$(RM) $(NAME)
+$(OBJ)			:	$(SRC)
 
-re:				fclean $(NAME)
+clean			:
+					$(RM) $(OBJS)
 
-.PHONY:			all clean fclean re bonus
+fclean			:	clean
+					$(RM) $(NAME)
+
+re				:	fclean $(NAME)
+
+.PHONY			:	all clean fclean re bonus
 
