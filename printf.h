@@ -6,7 +6,7 @@
 /*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:03:09 by etavera-          #+#    #+#             */
-/*   Updated: 2023/02/20 08:19:23 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/02/21 11:28:51 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 # include "libft/libft.h"
 # include <stdarg.h>
 
-int	ft_printf(const char *format, ...);
+void	ft_printf(const char *format, ...);
+size_t	ft_strlen(const char *str);
 #endif

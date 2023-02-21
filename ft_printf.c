@@ -6,59 +6,65 @@
 /*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:12:39 by etavera-          #+#    #+#             */
-/*   Updated: 2023/02/20 11:22:31 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/02/21 09:25:32 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/printf.h"
-#include <stdio.h>
-#include <stdarg.h>
+#include "printf.h"
 
 void	ft_check_specifier(const char spcr, int c)
 {
-	if (spcr == 'i' || spcr == 'd')
-		ft_putnbr_fd(c, 1);
+	if (spcr == 'i')
+		write(1, "integer", 7);
 	if (spcr == 'd')
-		write(1, "decimal", 1);
+		write(1, "decimal", 7);
 	if (spcr == 's')
-		write(1, "string of character", 1);
+		write(1, "string of character", 19);
 	if (spcr == 'p')
-		write(1, "pointer address", 1);
+		write(1, "pointer address", 11);
 	if (spcr == 'f')
-		write(1, "floating", 1);
+		write(1, "floating", 8);
 	if (spcr == 'o')
-		write(1, "octal number", 1);
+		write(1, "octal number", 12);
 	if (spcr == 'u')
-		write(1, "unsigned decimal", 1);
+		write(1, "unsigned decimal", 16);
 	if (spcr == 'x' || spcr == 'X')
-		write(1, "number in hexadecimal", 1);
+		write(1, "number in hexadecimal", 21);
 	if (spcr == '%')
-		write(1, "print a precent sign", 1);
+		write(1, "print a precent sign", 11);
 	else
 		return ((void)0);
 }
 
-int	ft_printf(const char *fstr, ...)
+void ft_printf(const char *fstr, ...)
 {
 	va_list	ptr;
+	int num_var;
 	int		i;
 	int		j;
 
 	va_start(ptr, fstr);
 	i = 0;
 	j = 0;
-	while (fstr)
+	num_var = ft_strlen(fstr);
+	while (num_var)
 	{
 		if (fstr[i] == '%')
+		{
 			ft_check_specifier(fstr[i + 1], va_arg(ptr, int));
+			// printf("info %s",va_arg(ptr, char));
+			// write(1, &ptr, 1);
+			num_var--;
+		}
 		else if (fstr[i] == '\n')
 			write(1, "\n", 1);
 		else
 			write(1, &fstr[i], 1);
-		i++;
+		num_var--;
 	}
 	va_end(ptr);
-	return (0);
+	// write(1, "(null)", 1);
+
 }
 
 int	main(void)
@@ -70,7 +76,8 @@ int	main(void)
 	// printf ("floats: %4.2f %+.0e %E \n", 3.14159, 3.14159, 3.14159);
 	// printf ("Preceding with empty spaces: %10d \n", 1997);
 	// printf ("Preceding with zeros: %010d \n", 1997);
-	ft_printf ("Preceding with zeros: %c \n", 1997);
+	ft_printf ("Preceding with zeros: %i \n", 1997);
+	ft_printf ("Preceding with zeros: %i ", 1997);
 	// printf ("Width: %*d \n", 15, 140);
 	// ft_printf ("Width: %*d \n", 15, 140);
 	// printf ("%s \n", "Educative");
