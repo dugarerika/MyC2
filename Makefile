@@ -6,25 +6,27 @@
 #    By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 08:24:14 by etavera-          #+#    #+#              #
-#    Updated: 2023/02/21 11:40:16 by etavera-         ###   ########.fr        #
+#    Updated: 2023/02/21 12:11:41 by etavera-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			=	libftprintf.a
+NAME			=	printf.a
 LIBFT_DIR		=	libft
 LIBFT			=	$(LIBFT_DIR)/libft.a
 CC				= 	cc
 CFLAGS			= 	-Wall -Wextra -Werror
 
-SRC				=	ft_printf.c \
+SRC				=	ft_printf.c\
 
 OBJS			=	$(SRCS:.c=.o)
 
 all				:	$(NAME)
 
-$(NAME)			:	$(LIBFT) $(OBJS)
-					cp $(LIBFT) $(NAME)
-					ar -rcs $(LIBFT) $(NAME) $(OBJS)
+$(NAME)			:	$(OBJS)
+					ar rcs $(NAME) $(OBJS)
+					$(LIBFT) $(OBJS)
+					cp $(LIBFT) $(NAME) $(OBJS)
+					ar rcs $(LIBFT) $(NAME) $(OBJS)
 
 $(LIBFT)		:
 					make -C $(LIBFT_DIR) all
