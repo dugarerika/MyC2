@@ -13,8 +13,8 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft/libft.h"
 # include <stdarg.h>
+# include <unistd.h>
 
 void	ft_printf(const char *format, ...);
 size_t	ft_strlen(const char *str);
