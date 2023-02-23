@@ -15,7 +15,7 @@
 # include <stdlib.h> 
 # include <stdio.h>
 
-char	ft_str_is_numeric(char *str)
+int	ft_str_is_numeric(char *str)
 {
 	int	k;
 	int	result;
@@ -126,7 +126,7 @@ void	ft_check_specifier(const char spcr, va_list ptr)
 		ft_putnbr(va_arg(ptr, int));
 	if (spcr == 'c')
 		ft_putstr(va_arg(ptr, char *));
-	if (spcr == 's' || spcr == 'c')
+	if (spcr == 's')
 		ft_putstr(va_arg(ptr, char *));
 	if (spcr == 'p')
 		write(1, "pointer address", 11);
@@ -176,10 +176,11 @@ int ft_printf(const char *fstr, ...)
 
 int	main(void)
 {
+	char str[] = " -+++++-01234ab567";
 	printf ("Integers: %u %i \n", -3456, 3456);
 	ft_printf ("Integers: %u %i \n", -3456, 3456);
 	printf ("Characters: %c %c \n", 'z', 80);
-	ft_printf ("Characters: %c %c \n", 'z', 80);
+	ft_printf ("Characters: %c \n", 80);
 	// printf ("Decimals: %d %ld\n", 1997, 32000L);
 	// printf ("floats: %4.2f %+.0e %E \n", 3.14159, 3.14159, 3.14159);
 	// printf ("Preceding with empty spaces: %10d \n", 1997);
@@ -199,6 +200,5 @@ int	main(void)
 	ft_printf("%x %x %x %x %x %x %x %x\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
 	printf("%X %X %X %X %X %X %X %X\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
 	ft_printf("%X %X %X %X %X %X %X %X\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
-
-	return (0);
+	printf("%d", atoi(str));
 }
