@@ -12,9 +12,32 @@
 
 # include <stdarg.h>
 # include <unistd.h>
-# include  <stdlib.h> 
+# include <stdlib.h> 
+# include <stdio.h>
 
+char	ft_str_is_numeric(char *str)
+{
+	int	k;
+	int	result;
 
+	k = 0;
+	result = 1;
+	while (str[k] != '\0')
+	{
+		if (str[k] >= '0' && str[k] <= '9')
+		{
+			result = 1;
+			k++;
+		}
+		else
+		{
+			result = 0;
+			k++;
+			break ;
+		}
+	}
+	return (result);
+}
 
 void	ft_putstr(char *str)
 {
@@ -30,36 +53,39 @@ void	ft_putstr(char *str)
 	}
 }
 
-void	put_hex(int d)
+void	put_hex(int d, char base)
 {
 	char	mod;
 	char	*acum;
 	int	i;
 	int	r;
 
+	i = -1;
 	r = d;
 	while (r != 0)
 	{
 		r = r / 16;
 		i++;
 	}
-
 	acum = malloc(i);
-
 	while (d != 0)
 	{
 		mod = d % 16;
 		if (mod <= 15 && mod >= 10)
 		{
-			mod = mod + 87;
-			// write(1, &mod, 1);
-			* acum ++ = 'A';
+			if (base == 'X')
+				mod = mod + 55;
+			else if (base == 'x')
+				mod = mod + 87;
+			acum[i] = mod;
+			i--;
 		}
 		else if (mod <= 9)
 		{
 			mod = mod + 48;
 			// write(1, &mod, 1);
-			* acum ++ = 'b';
+			acum[i] = mod;
+			i--;
 		}
 		d = d / 16;
 	}
@@ -98,7 +124,9 @@ void	ft_check_specifier(const char spcr, va_list ptr)
 {
 	if (spcr == 'i' || spcr == 'd')
 		ft_putnbr(va_arg(ptr, int));
-	if (spcr == 's')
+	if (spcr == 'c')
+		ft_putstr(va_arg(ptr, char *));
+	if (spcr == 's' || spcr == 'c')
 		ft_putstr(va_arg(ptr, char *));
 	if (spcr == 'p')
 		write(1, "pointer address", 11);
@@ -107,19 +135,18 @@ void	ft_check_specifier(const char spcr, va_list ptr)
 	if (spcr == 'o')
 		write(1, "octal number", 12);
 	if (spcr == 'u')
-		write(1, "unsigned decimal", 16);
+		ft_putnbr(va_arg(ptr, int));
 	if (spcr == 'x' || spcr == 'X')
-		put_hex(va_arg(ptr, int));
+		put_hex(va_arg(ptr, int), spcr);
 	if (spcr == '%')
-		write(1, "print a precent sign", 11);
+		write (1, "%", 1);
 	else
 		return ((void)0);
 }
 
-void ft_printf(const char *fstr, ...)
+int ft_printf(const char *fstr, ...)
 {
 	va_list	ptr;
-	int num_var;
 	int		i;
 	int		j;
 
@@ -143,26 +170,35 @@ void ft_printf(const char *fstr, ...)
 	}
 	va_end(ptr);
 	// write(1, "(null)", 1);
+	return (0);
 
 }
 
 int	main(void)
 {
-	// printf ("Integers: %i %u \n", -3456, 3456);
-	// ft_printf ("Integers: %i %u \n", -3456, 3456);
-	// printf ("Characters: %c %c \n", 'z', 80);
+	printf ("Integers: %u %i \n", -3456, 3456);
+	ft_printf ("Integers: %u %i \n", -3456, 3456);
+	printf ("Characters: %c %c \n", 'z', 80);
+	ft_printf ("Characters: %c %c \n", 'z', 80);
 	// printf ("Decimals: %d %ld\n", 1997, 32000L);
 	// printf ("floats: %4.2f %+.0e %E \n", 3.14159, 3.14159, 3.14159);
 	// printf ("Preceding with empty spaces: %10d \n", 1997);
 	// printf ("Preceding with zeros: %010d \n", 1997);
 	ft_printf ("Preceding with zeros: %i \n", 1997);
 	ft_printf ("Preceding with zeros: %d \n", 1997);
-	ft_printf ("Preceding with zeros: %s %d \n ", "abc", 12);
-	ft_printf ("%d %d \n ", 1997, 12);
+	ft_printf ("Preceding with zeros: %s %d \n", "abc", 12);
+	ft_printf ("%d %d \n", 1997, 12);
 	// printf ("Width: %*d \n", 15, 140);
 	// ft_printf ("Width: %*d \n", 15, 140);
+	ft_printf("%%|\n");
+	printf("%%|\n");
+	ft_printf("%#8x|\n", 234567);	
+	printf("%#8x|\n", 234567);	
 	ft_printf ("%s \n", "Educative");
+	printf("%x %x %x %x %x %x %x %x\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
 	ft_printf("%x %x %x %x %x %x %x %x\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
+	printf("%X %X %X %X %X %X %X %X\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
+	ft_printf("%X %X %X %X %X %X %X %X\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
 
 	return (0);
 }

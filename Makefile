@@ -1,53 +1,27 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/08 08:24:14 by etavera-          #+#    #+#              #
-#    Updated: 2023/02/21 12:11:41 by etavera-         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
-NAME			=	printf.a
-LIBFT_DIR		=	libft
-LIBFT			=	$(LIBFT_DIR)/libft.a
-CC				= 	cc
-CFLAGS			= 	-Wall -Wextra -Werror
+SRCS			= ft_printf.c
+OBJS			= $(SRCS:.c=.o)
 
-SRC				=	ft_printf.c\
+CC				= gcc
+RM				= rm -f
+CFLAGS			= -Wall -Wextra -Werror.
 
-OBJS			=	$(SRCS:.c=.o)
+NAME			= libftprintf.a
 
-all				:	$(NAME)
+all:			$(NAME)
 
-$(NAME)			:	$(OBJS)
-					ar rcs $(NAME) $(OBJS)
-					$(LIBFT) $(OBJS)
-					cp $(LIBFT) $(NAME) $(OBJS)
-					ar rcs $(LIBFT) $(NAME) $(OBJS)
+$(NAME):		$(OBJS)
+				ar rcs $(NAME) $(OBJS)
 
-$(LIBFT)		:
-					make -C $(LIBFT_DIR) all
+clean:
+				$(RM) $(OBJS)
 
-$(OBJ)			:	$(SRC)
-					$(CC) $(CFLAGS) -c $(SRC)
+fclean:			clean
+				$(RM) $(NAME)
 
-clean			:
-					make clean -C ./libft
-					rm -f $(OBJ)
+re:				fclean $(NAME)
 
-fclean			:	clean
-					make fclean -C ./libft
-					rm -f $(NAME)
-
-re				:	fclean all
-
-norm			:
-					norminette $(SRC)
-
-.PHONY			:	all clean fclean re
+.PHONY:			all clean fclean re bonus
 
 
 
