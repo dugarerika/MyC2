@@ -29,8 +29,6 @@ void	ft_putstr(char *str)
 	}
 }
 
-
-
 void	ft_putnbr(int a)
 {
 	int	c;
@@ -59,6 +57,11 @@ void	ft_putnbr(int a)
 	}
 }
 
+void put_hex_neg(int d)
+{
+
+}
+
 void	put_hex(int d, char base)
 {
 	char	mod;
@@ -75,7 +78,9 @@ void	put_hex(int d, char base)
 	}
 	acum = malloc(i);
 	if(d == 0)
-	ft_putnbr(0);
+		ft_putnbr(0);
+	if (d < 0)
+		put_hex_neg(d);
 	while (d != 0)
 	{
 		
@@ -215,54 +220,56 @@ int ft_printf(const char *fstr, ...)
 
 }
 
-// int	main(void)
-// {
-// 	char str[] = " -+++++-01234ab567";
-// 	// printf ("Integers: %u %i \n", -3456, 3456);
-// 	// ft_printf ("Integers: %u %i \n", -3456, 3456);
-// 	// printf ("Characters: %c %c \n", "z", 80);
-//     // ft_printf ("Characters: %c %c \n", "z", 80) //need to check this scenario;
-// 	printf ("Octal value is : %o \n", 2567);
-// 	ft_printf ("Octal value is : %o \n", 2567);
-// 	ft_printf ("Characters: %c \n", 'z');
-// 	ft_printf ("Characters: %c \n", 80);
-// 	// printf ("Decimals: %d %ld\n", 1997, 32000L);
-// 	// printf ("floats: %4.2f %+.0e %E \n", 3.14159, 3.14159, 3.14159);
-// 	// printf ("Preceding with empty spaces: %10d \n", 1997);
-// 	// printf ("Preceding with zeros: %010d \n", 1997);
-// 	printf ("Preceding with zeros: %i \n", 1997);
-// 	ft_printf ("Preceding with zeros: %i \n", 1997);
-// 	ft_printf ("Preceding with zeros: %d \n", 1997);
-// 	ft_printf ("Preceding with zeros: %s %d \n", "abc", 12);
-// 	ft_printf ("%d %d \n", 1997, 12);
-// 	// printf ("Width: %*d \n", 15, 140);
-// 	// ft_printf ("Width: %*d \n", 15, 140);
-// 	printf("%i\n", 0);
-// 	ft_printf("%i\n", 0);
-// 	printf("%i\n", -1);
-// 	ft_printf("%i\n", -1);
-// 	printf("%i\n", 0);
-// 	ft_printf("%x\n", 0);
-// 	printf("%x\n", 100);
-// 	ft_printf("%x\n", 100);
-// 	printf("%x\n", -1);
-// 	ft_printf("%x\n", -1);
-// 	printf("%x\n", 9);
-// 	ft_printf("%x\n", 9);
-// 	printf("%x\n", 2147483647);
-// 	ft_printf("%x\n", 2147483647);
-// 	printf("%x\n", 32768);
-// 	ft_printf("%x\n", 32768);
+int	main(void)
+{
+	char str[] = " -+++++-01234ab567";
+	// printf ("Integers: %u %i \n", -3456, 3456);
+	// ft_printf ("Integers: %u %i \n", -3456, 3456);
+	// printf ("Characters: %c %c \n", "z", 80);
+    // ft_printf ("Characters: %c %c \n", "z", 80) //need to check this scenario;
+	printf ("Octal value is : %o \n", 2567);
+	ft_printf ("Octal value is : %o \n", 2567);
+	ft_printf ("Characters: %c \n", 'z');
+	ft_printf ("Characters: %c \n", 80);
+	// printf ("Decimals: %d %ld\n", 1997, 32000L);
+	// printf ("floats: %4.2f %+.0e %E \n", 3.14159, 3.14159, 3.14159);
+	// printf ("Preceding with empty spaces: %10d \n", 1997);
+	// printf ("Preceding with zeros: %010d \n", 1997);
+	printf ("Preceding with zeros: %i \n", 1997);
+	ft_printf ("Preceding with zeros: %i \n", 1997);
+	ft_printf ("Preceding with zeros: %d \n", 1997);
+	ft_printf ("Preceding with zeros: %s %d \n", "abc", 12);
+	ft_printf ("%d %d \n", 1997, 12);
+	// printf ("Width: %*d \n", 15, 140);
+	// ft_printf ("Width: %*d \n", 15, 140);
+	printf("%i\n", 0);
+	ft_printf("%i\n", 0);
+	printf("%i\n", -1);
+	ft_printf("%i\n", -1);
+	printf("%i\n", 0);
+	ft_printf("%x\n", 0);
+	printf("%x\n", 100);
+	ft_printf("%x\n", 100);
+		printf("%x\n", 1);
+	ft_printf("%x\n", 1);
+	printf("%x\n", -1);
+	ft_printf("%x\n", -1);
+	printf("%x\n", 9);
+	ft_printf("%x\n", 9);
+	printf("%x\n", 2147483647);
+	ft_printf("%x\n", 2147483647);
+	printf("%x\n", 32768);
+	ft_printf("%x\n", 32768);
 
-// 	//printf("%x %x %x %x %x %x %x", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
-// 	ft_printf("%%|\n");
-// 	printf("%%|\n");
-// 	ft_printf("%#8x|\n", 234567);
-// 	printf("%#8x|\n", 234567);
-// 	ft_printf ("%s \n", "Educative");
-// 	printf("%x %x %x %x %x %x %x %x\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
-// 	ft_printf("%x %x %x %x %x %x %x %x\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
-// 	printf("%X %X %X %X %X %X %X %X\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
-// 	ft_printf("%X %X %X %X %X %X %X %X\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
-// 	printf("%d", atoi(str));
-// }
+	//printf("%x %x %x %x %x %x %x", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	ft_printf("%%|\n");
+	printf("%%|\n");
+	ft_printf("%#8x|\n", 234567);
+	printf("%#8x|\n", 234567);
+	ft_printf ("%s \n", "Educative");
+	printf("%x %x %x %x %x %x %x %x\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
+	ft_printf("%x %x %x %x %x %x %x %x\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
+	printf("%X %X %X %X %X %X %X %X\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
+	ft_printf("%X %X %X %X %X %X %X %X\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
+	printf("%d", atoi(str));
+}
