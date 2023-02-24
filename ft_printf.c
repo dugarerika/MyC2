@@ -6,37 +6,30 @@
 /*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:12:39 by etavera-          #+#    #+#             */
-/*   Updated: 2023/02/21 09:25:32 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:27:35 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <stdarg.h>
 # include <unistd.h>
-# include <stdlib.h> 
+# include <stdlib.h>
 # include <stdio.h>
 
-int	ft_str_is_numeric(char *str)
+int	ft_power(int nb, int power)
 {
 	int	k;
-	int	result;
+	int	acum;
 
 	k = 0;
-	result = 1;
-	while (str[k] != '\0')
+	acum = 1;
+	if (power < 0)
+		return (0);
+	while (k < power)
 	{
-		if (str[k] >= '0' && str[k] <= '9')
-		{
-			result = 1;
-			k++;
-		}
-		else
-		{
-			result = 0;
-			k++;
-			break ;
-		}
+		acum = acum * nb;
+		k++;
 	}
-	return (result);
+	return (acum);
 }
 
 void	ft_putstr(char *str)
@@ -51,6 +44,24 @@ void	ft_putstr(char *str)
 		write(1, &str[i], 1);
 		i++;
 	}
+}
+
+void	put_oct(int d)
+{
+	int	p;
+	int	decimal;
+	int	r;
+
+	p = 0;
+	decimal = 0;
+
+	while (n > 0)
+	{
+		r = n % 10;
+		decimal = decimal + r * ft_power(8, p);
+		p++;
+	}
+	ft_putstr(decimal);
 }
 
 void	put_hex(int d, char base)
@@ -83,7 +94,6 @@ void	put_hex(int d, char base)
 		else if (mod <= 9)
 		{
 			mod = mod + 48;
-			// write(1, &mod, 1);
 			acum[i] = mod;
 			i--;
 		}
@@ -120,7 +130,22 @@ void	ft_putnbr(int a)
 	}
 }
 
-int	ft_atoi(char *str)
+void	ft_str_is_numeric(char str)
+{
+	int	result;
+
+	result = 1;
+		if (str >= '0' && str <= '9')
+		{
+			ft_putnbr((int)str);
+		}
+		else
+		{
+			write(1, &str, 1);
+		}
+}
+
+void	ft_atoi(char *str)
 {
 	int	neg;
 	int	result;
@@ -146,21 +171,18 @@ int	ft_atoi(char *str)
 		result = (result * 10) + (str[k] - 48);
 		k++;
 	}
-	return (result * neg);
+	result = result * neg;
+	ft_putnbr(result);
+
 }
 
 void	ft_check_specifier(const char spcr, va_list ptr)
 {
-	char	*fptr;
 
 	if (spcr == 'i' || spcr == 'd')
 		ft_putnbr(va_arg(ptr, int));
 	if (spcr == 'c')
-		fptr = va_arg(ptr, char *);
-		if (ft_str_is_numeric(fptr) == 1)
-			ft_putnbr(ft_atoi(fptr));
-		else
-			ft_putstr(fptr);
+		ft_str_is_numeric((char)va_arg(ptr, int));
 	if (spcr == 's')
 		ft_putstr(va_arg(ptr, char *));
 	if (spcr == 'p')
@@ -193,8 +215,6 @@ int ft_printf(const char *fstr, ...)
 		if (fstr[i] == '%')
 		{
 			ft_check_specifier(fstr[i + 1], ptr);
-			// printf("info %s",va_arg(ptr, char));
-			// write(1, &ptr, 1);
 			i++;
 		}
 		else if (fstr[i] == '\n')
@@ -204,7 +224,6 @@ int ft_printf(const char *fstr, ...)
 		i++;
 	}
 	va_end(ptr);
-	// write(1, "(null)", 1);
 	return (0);
 
 }
@@ -214,7 +233,9 @@ int	main(void)
 	char str[] = " -+++++-01234ab567";
 	// printf ("Integers: %u %i \n", -3456, 3456);
 	// ft_printf ("Integers: %u %i \n", -3456, 3456);
-	printf ("Characters: %c %c \n", 'z', 80);
+	// printf ("Characters: %c %c \n", "z", 80);
+    // ft_printf ("Characters: %c %c \n", "z", 80) //need to check this scenario;
+	ft_printf ("Characters: %c \n", 'z');
 	ft_printf ("Characters: %c \n", 80);
 	// printf ("Decimals: %d %ld\n", 1997, 32000L);
 	// printf ("floats: %4.2f %+.0e %E \n", 3.14159, 3.14159, 3.14159);
@@ -228,8 +249,8 @@ int	main(void)
 	// ft_printf ("Width: %*d \n", 15, 140);
 	ft_printf("%%|\n");
 	printf("%%|\n");
-	ft_printf("%#8x|\n", 234567);	
-	printf("%#8x|\n", 234567);	
+	ft_printf("%#8x|\n", 234567);
+	printf("%#8x|\n", 234567);
 	ft_printf ("%s \n", "Educative");
 	printf("%x %x %x %x %x %x %x %x\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
 	ft_printf("%x %x %x %x %x %x %x %x\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
