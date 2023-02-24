@@ -120,12 +120,47 @@ void	ft_putnbr(int a)
 	}
 }
 
+int	ft_atoi(char *str)
+{
+	int	neg;
+	int	result;
+	int	k;
+
+	k = 0;
+	neg = 1;
+	result = 0;
+	while (str[k] == 32 || (str[k] >= 9 && str[k] <= 13))
+	{
+		k++;
+	}
+	if (str[k] == 45 || str[k] == 43)
+	{
+		if (str[k] == 45)
+		{
+			neg = neg * -1;
+		}
+	k++;
+	}
+	while (str[k] <= 57 && str[k] >= 48)
+	{
+		result = (result * 10) + (str[k] - 48);
+		k++;
+	}
+	return (result * neg);
+}
+
 void	ft_check_specifier(const char spcr, va_list ptr)
 {
+	char	*fptr;
+
 	if (spcr == 'i' || spcr == 'd')
 		ft_putnbr(va_arg(ptr, int));
 	if (spcr == 'c')
-		ft_putstr(va_arg(ptr, char *));
+		fptr = va_arg(ptr, char *);
+		if (ft_str_is_numeric(fptr) == 1)
+			ft_putnbr(ft_atoi(fptr));
+		else
+			ft_putstr(fptr);
 	if (spcr == 's')
 		ft_putstr(va_arg(ptr, char *));
 	if (spcr == 'p')
@@ -177,8 +212,8 @@ int ft_printf(const char *fstr, ...)
 int	main(void)
 {
 	char str[] = " -+++++-01234ab567";
-	printf ("Integers: %u %i \n", -3456, 3456);
-	ft_printf ("Integers: %u %i \n", -3456, 3456);
+	// printf ("Integers: %u %i \n", -3456, 3456);
+	// ft_printf ("Integers: %u %i \n", -3456, 3456);
 	printf ("Characters: %c %c \n", 'z', 80);
 	ft_printf ("Characters: %c \n", 80);
 	// printf ("Decimals: %d %ld\n", 1997, 32000L);
