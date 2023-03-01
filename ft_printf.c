@@ -27,9 +27,6 @@ size_t	ft_strlen(const char *str)
 
 int	ft_putstr(char const *str)
 {
-	int	i;
-
-	i = 0;
 	if (str == NULL)
 		return (write(1, "(null)", 6));
 	else
@@ -194,7 +191,7 @@ int	ft_check_specifier(const char spcr, va_list ptr)
 		return (1);
 	}
 	else if (spcr == 's')
-		ft_putstr(va_arg(ptr, char *));
+		return(ft_putstr(va_arg(ptr, char *)));
 	else if (spcr == 'p')
 		return (write(1, "pointer address", 11));
 	else if (spcr == 'f')
