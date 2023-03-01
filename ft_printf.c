@@ -25,7 +25,7 @@ size_t	ft_strlen(const char *str)
 	return (r);
 }
 
-int	ft_putstr(char *str)
+int	ft_putstr(char const *str)
 {
 	int	i;
 
@@ -184,12 +184,15 @@ void	ft_str_is_character(char str)
 
 // }
 
-static int	ft_check_specifier(const char spcr, va_list ptr)
+int	ft_check_specifier(const char spcr, va_list ptr)
 {
 	if (spcr == 'i' || spcr == 'd')
 		return(putnbr(va_arg(ptr, int)));
 	else if (spcr == 'c')
+	{
 		ft_str_is_character((char)va_arg(ptr, int));
+		return (1);
+	}
 	else if (spcr == 's')
 		ft_putstr(va_arg(ptr, char *));
 	else if (spcr == 'p')
@@ -204,8 +207,7 @@ static int	ft_check_specifier(const char spcr, va_list ptr)
 		return (put_hex(va_arg(ptr, unsigned int), spcr));
 	else if (spcr == '%')
 		return (write (1, "%", 1));
-
-		return (0);
+	return (0);
 }
 
 int ft_printf(const char *fstr, ...)
@@ -217,20 +219,22 @@ int ft_printf(const char *fstr, ...)
 	va_start(ptr, fstr);
 	i = 0;
 	j = 0;
-	while (fstr[i] != '\0')
+	if (!fstr)
+		return (0);
+	while (fstr[i])
 	{
 		if (fstr[i] == '%')
 		{
-			j += ft_check_specifier(fstr[i + 1], ptr);
 			i++;
+			j += ft_check_specifier(fstr[i], ptr);
 		}
-		else if (fstr[i] == '\n')
-			j += write(1, "\n", 1);
-		else if (fstr[i] == 32)
-			j += write(1, " ", 1);
+		// else if (fstr[i] == '\n')
+		// 	j += write(1, "\n", 1);
+		// else if (fstr[i] == 32)
+		// 	j += write(1, " ", 1);
 		else
 			j += write(1, &fstr[i], 1);
-	i++;
+		i++;
 	}
 	va_end(ptr);
 	return (j);
@@ -242,6 +246,22 @@ int ft_printf(const char *fstr, ...)
 // 		char *s2 = "Mussum Ipsum, cacilds vidis litro abertis. Posuere libero varius. Nullam a nisl ut ante blandit hendrerit. Aenean sit amet nisi. Atirei o pau no gatis, per gatis num morreus.";
 // 		ft_printf(" %s %s %s %s %s\n", " - ", "", "4", "", s2);
 // 		printf(" %s %s %s %s %s\n", " - ", "", "4", "", s2);
+
+// printf("%c", '0');
+// ft_printf("%c", '0');
+// printf(" %c ", '0');
+// ft_printf(" %c ", '0');
+// printf(" %c", '0' - 256);
+// ft_printf(" %c", '0' - 256);
+// printf("%c ", '0' + 256);
+// ft_printf("%c ", '0' + 256);
+// printf(" %c %c %c ", '0', 0, '1');
+// printf(" %c %c %c ", ' ', ' ', ' ');
+// printf(" %c %c %c ", '1', '2', '3');
+// printf(" %c %c %c ", '2', '1', 0);
+// printf(" %c %c %c ", 0, '1', '2');
+
+
 // 	}
 // 	// char str[] = " -+++++-01234ab567";
 // 	// printf ("Integers: %u %i \n", -3456, 3456);
