@@ -25,7 +25,7 @@ size_t	ft_strlen(const char *str)
 	return (r);
 }
 
-int	ft_putstr(char const *str)
+int	putstr(char const *str)
 {
 	if (str == NULL)
 		return (write(1, "(null)", 6));
@@ -183,15 +183,16 @@ void	ft_str_is_character(char str)
 
 int	ft_check_specifier(const char spcr, va_list ptr)
 {
+	char c;
 	if (spcr == 'i' || spcr == 'd')
-		return(putnbr(va_arg(ptr, int)));
+		return (putnbr(va_arg(ptr, int)));
 	else if (spcr == 'c')
 	{
-		ft_str_is_character((char)va_arg(ptr, int));
-		return (1);
+		c = va_arg(ptr, int);
+		return (write(1, &c,1));
 	}
 	else if (spcr == 's')
-		return(ft_putstr(va_arg(ptr, char *)));
+		return(putstr(va_arg(ptr, char *)));
 	else if (spcr == 'p')
 		return (write(1, "pointer address", 11));
 	else if (spcr == 'f')
