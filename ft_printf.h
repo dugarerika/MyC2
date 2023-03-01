@@ -18,5 +18,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-int ft_printf(const char *fstr, ...);
+int   ft_printf(const char *fstr, ...);
+int	ft_putstr(char const *str);
 #endif
