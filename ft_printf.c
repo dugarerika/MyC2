@@ -6,7 +6,7 @@
 /*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:12:39 by etavera-          #+#    #+#             */
-/*   Updated: 2023/03/02 09:12:42 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/03/02 10:03:45 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,37 +176,30 @@ void	ft_str_is_character(char str)
 
 // }
 
-int	ft_check_specifier(const char spcr, va_list ptr)
+void	ft_check_specifier(const char spcr, va_list ptr)
 {
 	char c;
 	if (spcr == 'i' || spcr == 'd')
-	{
 		ft_putnbr_fd(va_arg(ptr, int), 1);
-		return (1);
-	}
 	else if (spcr == 'c')
 	{
 		c = va_arg(ptr, int);
-		return (write(1, &c,1));
+		write(1, &c,1);
 	}
 	else if (spcr == 's')
-		return(putstr(va_arg(ptr, char *)));
+		putstr(va_arg(ptr, char *));
 	else if (spcr == 'p')
-		return (write(1, "pointer address", 11));
+		write(1, "pointer address", 11);
 	else if (spcr == 'f')
-		return (write(1, "floating", 8));
+		write(1, "floating", 8);
 	else if (spcr == 'o')
 		put_oct(va_arg(ptr, int));
 	else if (spcr == 'u')
-	{
 		ft_putnbr_fd(va_arg(ptr, int), 1);
-		return (1);
-	}
 	else if (spcr == 'x' || spcr == 'X')
-		return (put_hex(va_arg(ptr, unsigned int), spcr));
+		put_hex(va_arg(ptr, unsigned int), spcr);
 	else if (spcr == '%')
-		return (write (1, "%", 1));
-	return (0);
+		write (1, "%", 1);
 }
 
 int ft_printf(const char *fstr, ...)
@@ -225,7 +218,8 @@ int ft_printf(const char *fstr, ...)
 		if (fstr[i] == '%')
 		{
 			i++;
-			j += ft_check_specifier(fstr[i], ptr);
+			ft_check_specifier(fstr[i], ptr);
+			j++;
 		}
 		else
 			j += write(1, &fstr[i], 1);
