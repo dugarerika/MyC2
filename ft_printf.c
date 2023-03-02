@@ -33,7 +33,22 @@ int	putstr(char const *str)
 		return (write(1, str, ft_strlen(str)));
 }
 
-void	ft_putnbr_fd(int a, int fd)
+static size_t	i_digits(int n)
+{
+	size_t	digits;
+
+	digits = 0;
+	if (n <= 0)
+		digits += 1;
+	while (n != 0)
+	{
+		n /= 10;
+		digits += 1;
+	}
+	return (digits);
+}
+
+int	ft_putnbr_fd(int a, int fd)
 {
 	int	c;
 
@@ -59,6 +74,7 @@ void	ft_putnbr_fd(int a, int fd)
 		ft_putnbr_fd(a / 10, fd);
 		write(fd, &c, 1);
 	}
+	return (i_digits(a));
 }
 
 void	hex(unsigned int d, char base)
@@ -176,30 +192,27 @@ void	ft_str_is_character(char str)
 
 // }
 
-void	ft_check_specifier(const char spcr, va_list ptr)
+int	ft_check_specifier(const char spcr, va_list ptr)
 {
 	char c;
 	if (spcr == 'i' || spcr == 'd')
-		ft_putnbr_fd(va_arg(ptr, int), 1);
+		return(ft_putnbr_fd(va_arg(ptr, int), 1));
 	else if (spcr == 'c')
 	{
 		c = va_arg(ptr, int);
-		write(1, &c,1);
+		return(write(1, &c,1));
 	}
 	else if (spcr == 's')
-		putstr(va_arg(ptr, char *));
+		return(putstr(va_arg(ptr, char *)));
 	else if (spcr == 'p')
 		write(1, "pointer address", 11);
-	else if (spcr == 'f')
-		write(1, "floating", 8);
-	else if (spcr == 'o')
-		put_oct(va_arg(ptr, int));
 	else if (spcr == 'u')
-		ft_putnbr_fd(va_arg(ptr, int), 1);
+		return(ft_putnbr_fd(va_arg(ptr, int), 1));
 	else if (spcr == 'x' || spcr == 'X')
-		put_hex(va_arg(ptr, unsigned int), spcr);
+		return(put_hex(va_arg(ptr, unsigned int), spcr));
 	else if (spcr == '%')
-		write (1, "%", 1);
+		return(write (1, "%", 1));
+	return (0);
 }
 
 int ft_printf(const char *fstr, ...)
@@ -218,8 +231,7 @@ int ft_printf(const char *fstr, ...)
 		if (fstr[i] == '%')
 		{
 			i++;
-			ft_check_specifier(fstr[i], ptr);
-			j++;
+			j += ft_check_specifier(fstr[i], ptr);
 		}
 		else
 			j += write(1, &fstr[i], 1);
@@ -230,11 +242,11 @@ int ft_printf(const char *fstr, ...)
 
 }
 
-int	main(void)
-{
-	// printf(" %d ", -2147483647);
-	ft_printf(" %d ", -21474);
-	// nbr(-2147483647);
-	// ft_putnbr_fd(-2147483647, 1);
+// int	main(void)
+// {
+// 	// printf(" %d ", -2147483647);
+// 	ft_printf(" %d ", -21474);
+// 	// nbr(-2147483647);
+// 	// ft_putnbr_fd(-2147483647, 1);
 
-}
+// }

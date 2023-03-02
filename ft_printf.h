@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-int   ft_printf(const char *fstr, ...);
-int	putstr(char const *str);
-int   putnbr(int a);
+int ft_printf(const char *fstr, ...);
+int	ft_putstr(char const *str);
+int ft_putnbr_fd(int a, int fd);
 #endif
