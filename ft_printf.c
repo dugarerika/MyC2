@@ -6,7 +6,7 @@
 /*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:12:39 by etavera-          #+#    #+#             */
-/*   Updated: 2023/02/24 09:27:35 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/03/02 09:12:42 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,41 +33,32 @@ int	putstr(char const *str)
 		return (write(1, str, ft_strlen(str)));
 }
 
-int	nbr(int a)
+void	ft_putnbr_fd(int a, int fd)
 {
 	int	c;
-	c = 0;
 
 	if (a == -2147483648)
 	{
-		return (write(1, "-", 1));
-		return (write(1, "2", 1));
-		nbr(147483648);
+		write(fd, "-", 1);
+		write(fd, "2", 1);
+		ft_putnbr_fd(147483648, fd);
 	}
 	else if (a < 0)
 	{
-		return (write(1, "-", 1));
-		nbr(a);
+		write(fd, "-", 1);
+		ft_putnbr_fd(-a, fd);
 	}
 	else if (a >= 0 && a <= 9)
 	{
 		c = a + '0';
-		return (write(1, &c, 1));
+		write(fd, &c, 1);
 	}
 	else
 	{
 		c = (a % 10) + '0';
-		nbr(a / 10);
-		return (write(1, &c, 1));
+		ft_putnbr_fd(a / 10, fd);
+		write(fd, &c, 1);
 	}
-	return (c);
-}
-
-int	putnbr(int a)
-{
-
-	nbr(a);
-	return (a);
 }
 
 void	hex(unsigned int d, char base)
@@ -87,10 +78,10 @@ void	hex(unsigned int d, char base)
 	}
 	acum = malloc(i);
 	if(d == 0)
-		nbr(0);
+		ft_putnbr_fd(0,1);
 	while (d > 0)
 	{
-		
+
 		mod = d % 16;
 		if (mod <= 15 && mod >= 10)
 		{
@@ -134,7 +125,7 @@ void	put_oct(int d)
 		d /= 8;
 		i *=10;
 	}
-	nbr(octal);
+	ft_putnbr_fd(octal, 1);
 }
 
 void	ft_str_is_character(char str)
@@ -144,13 +135,15 @@ void	ft_str_is_character(char str)
 	result = 1;
 		if (str >= '0' && str <= '9')
 		{
-			nbr((int)str);
+			ft_putnbr_fd((int)str, 1);
 		}
 		else
 		{
 			write(1, &str, 1);
 		}
 }
+
+
 
 // void	ft_atoi(char *str)
 // {
@@ -187,7 +180,10 @@ int	ft_check_specifier(const char spcr, va_list ptr)
 {
 	char c;
 	if (spcr == 'i' || spcr == 'd')
-		return (nbr(va_arg(ptr, int)));
+	{
+		ft_putnbr_fd(va_arg(ptr, int), 1);
+		return (1);
+	}
 	else if (spcr == 'c')
 	{
 		c = va_arg(ptr, int);
@@ -202,7 +198,10 @@ int	ft_check_specifier(const char spcr, va_list ptr)
 	else if (spcr == 'o')
 		put_oct(va_arg(ptr, int));
 	else if (spcr == 'u')
-		return(nbr(va_arg(ptr, int)));
+	{
+		ft_putnbr_fd(va_arg(ptr, int), 1);
+		return (1);
+	}
 	else if (spcr == 'x' || spcr == 'X')
 		return (put_hex(va_arg(ptr, unsigned int), spcr));
 	else if (spcr == '%')
@@ -228,10 +227,6 @@ int ft_printf(const char *fstr, ...)
 			i++;
 			j += ft_check_specifier(fstr[i], ptr);
 		}
-		// else if (fstr[i] == '\n')
-		// 	j += write(1, "\n", 1);
-		// else if (fstr[i] == 32)
-		// 	j += write(1, " ", 1);
 		else
 			j += write(1, &fstr[i], 1);
 		i++;
@@ -243,6 +238,9 @@ int ft_printf(const char *fstr, ...)
 
 int	main(void)
 {
-	printf(" %d ", -2147483647);
-	ft_printf(" %d ", -2147483647);
+	// printf(" %d ", -2147483647);
+	ft_printf(" %d ", -21474);
+	// nbr(-2147483647);
+	// ft_putnbr_fd(-2147483647, 1);
+
 }
