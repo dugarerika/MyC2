@@ -47,7 +47,7 @@ int	nbr(int a)
 	else if (a < 0)
 	{
 		return (write(1, "-", 1));
-		nbr(-a);
+		nbr(a);
 	}
 	else if (a >= 0 && a <= 9)
 	{
@@ -243,5 +243,6 @@ int ft_printf(const char *fstr, ...)
 
 int	main(void)
 {
-	nbr(10);
+	printf(" %d ", -2147483647);
+	ft_printf(" %d ", -2147483647);
 }
