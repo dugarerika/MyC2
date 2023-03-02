@@ -33,32 +33,34 @@ int	putstr(char const *str)
 		return (write(1, str, ft_strlen(str)));
 }
 
-void	nbr(int a)
+int	nbr(int a)
 {
 	int	c;
+	c = 0;
 
 	if (a == -2147483648)
 	{
-		write(1, "-", 1);
-		write(1, "2", 1);
+		return (write(1, "-", 1));
+		return (write(1, "2", 1));
 		nbr(147483648);
 	}
 	else if (a < 0)
 	{
-		write(1, "-", 1);
+		return (write(1, "-", 1));
 		nbr(-a);
 	}
 	else if (a >= 0 && a <= 9)
 	{
 		c = a + '0';
-		write(1, &c, 1);
+		return (write(1, &c, 1));
 	}
 	else
 	{
 		c = (a % 10) + '0';
 		nbr(a / 10);
-		write(1, &c, 1);
+		return (write(1, &c, 1));
 	}
+	return (c);
 }
 
 int	putnbr(int a)
@@ -107,7 +109,7 @@ void	hex(unsigned int d, char base)
 		}
 		d = d / 16;
 	}
-	ft_putstr(acum);
+	putstr(acum);
 	free(acum);
 }
 
@@ -185,7 +187,7 @@ int	ft_check_specifier(const char spcr, va_list ptr)
 {
 	char c;
 	if (spcr == 'i' || spcr == 'd')
-		return (putnbr(va_arg(ptr, int)));
+		return (nbr(va_arg(ptr, int)));
 	else if (spcr == 'c')
 	{
 		c = va_arg(ptr, int);
@@ -200,7 +202,7 @@ int	ft_check_specifier(const char spcr, va_list ptr)
 	else if (spcr == 'o')
 		put_oct(va_arg(ptr, int));
 	else if (spcr == 'u')
-		return(putnbr(va_arg(ptr, int)));
+		return(nbr(va_arg(ptr, int)));
 	else if (spcr == 'x' || spcr == 'X')
 		return (put_hex(va_arg(ptr, unsigned int), spcr));
 	else if (spcr == '%')
@@ -239,133 +241,7 @@ int ft_printf(const char *fstr, ...)
 
 }
 
-// int	main(void)
-// 	{
-// 		char *s2 = "Mussum Ipsum, cacilds vidis litro abertis. Posuere libero varius. Nullam a nisl ut ante blandit hendrerit. Aenean sit amet nisi. Atirei o pau no gatis, per gatis num morreus.";
-// 		ft_printf(" %s %s %s %s %s\n", " - ", "", "4", "", s2);
-// 		printf(" %s %s %s %s %s\n", " - ", "", "4", "", s2);
-
-// printf("%c", '0');
-// ft_printf("%c", '0');
-// printf(" %c ", '0');
-// ft_printf(" %c ", '0');
-// printf(" %c", '0' - 256);
-// ft_printf(" %c", '0' - 256);
-// printf("%c ", '0' + 256);
-// ft_printf("%c ", '0' + 256);
-// printf(" %c %c %c ", '0', 0, '1');
-// printf(" %c %c %c ", ' ', ' ', ' ');
-// printf(" %c %c %c ", '1', '2', '3');
-// printf(" %c %c %c ", '2', '1', 0);
-// printf(" %c %c %c ", 0, '1', '2');
-
-
-// 	}
-// 	// char str[] = " -+++++-01234ab567";
-// 	// printf ("Integers: %u %i \n", -3456, 3456);
-// 	// ft_printf ("Integers: %u %i \n", -3456, 3456);
-// 	// printf ("Characters: %c %c \n", "z", 80);
-//     // ft_printf ("Characters: %c %c \n", "z", 80) //need to check this scenario;
-// 	// printf ("Octal value is : %o \n", 2567);
-// 	// ft_printf ("Octal value is : %o \n", 2567);
-// 	// ft_printf ("Characters: %c \n", 'z');
-// 	// ft_printf ("Characters: %c \n", 80);
-// 	// printf ("Decimals: %d %ld\n", 1997, 32000L);
-// 	// printf ("floats: %4.2f %+.0e %E \n", 3.14159, 3.14159, 3.14159);
-// 	// printf ("Preceding with empty spaces: %10d \n", 1997);
-// 	// printf ("Preceding with zeros: %010d \n", 1997);
-// 	// printf ("Preceding with zeros: %i \n", 1997);
-// 	// ft_printf ("Preceding with zeros: %i \n", 1997);
-// 	// ft_printf ("Preceding with zeros: %d \n", 1997);
-// 	// ft_printf ("Preceding with zeros: %s %d \n", "abc", 12);
-// 	// ft_printf ("%d %d \n", 1997, 12);
-// 	// printf ("Width: %*d \n", 15, 140);
-// 	// ft_printf ("Width: %*d \n", 15, 140);
-// 	// printf("%i\n", 0);
-// 	// ft_printf("%i\n", 0);
-// 	// printf("%i\n", -1);
-// 	// ft_printf("%i\n", -1);
-// 	// printf("%i\n", 0);
-// 	// ft_printf("%x\n", 0);
-// 	// printf("%x\n", 100);
-// 	// ft_printf("%x\n", 100);
-// 	// printf("%s\n", "");
-// 	// ft_printf("%s\n", "");
-// 	// printf("%s\n", "-");
-// 	// ft_printf("%s\n", "-");
-// 	// printf(" %s ", "-");
-// 	// ft_printf(" %s ", "-");
-
-
-// 	printf(" %s %s\n ", "-", "A");
-// 	printf(" %s %s\n ", "-", "A");
-// 	ft_printf(" %s %s\n ", "-", "A");
-
-
-// 	// printf("%x\n", 1);
-// 	// ft_printf("%x\n", 1);
-// 	// printf("%x\n", -1);
-// 	// ft_printf("%x\n", -1);
-// 	// printf("%x\n", -100);
-// 	// ft_printf("%x\n", -100);
-// 	// 	printf("%x\n", 100);
-// 	// ft_printf("%x\n", 100);
-// 	// 	printf("%x\n", -10);
-// 	// ft_printf("%x\n", -10);
-// 	// 		printf("%x\n", 10);
-// 	// ft_printf("%x\n", 10);
-// 	// printf("%x\n", 9);
-// 	// ft_printf("%x\n", 9);
-// 	// printf("%x\n", 2147483647);
-// 	// ft_printf("%x\n", 2147483647);
-// 	// printf("%x\n", 32768);
-// 	// ft_printf("%x\n", 32768);
-// 	// //printf("%x %x %x %x %x %x %x", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
-// 	// ft_printf("%%|\n");
-// 	// printf("%%|\n");
-// 	// ft_printf("%#8x|\n", 234567);
-// 	// printf("%#8x|\n", 234567);
-// 	// 	ft_printf ("%s \n", "Educative");
-// 	// 	printf ("%s \n", "Educative");
-// 	// 	ft_printf ("%s", "");
-// 	// 	printf ("%s", "");
-// 	// 	ft_printf (" %s", "");
-// 	// 	printf (" %s", "");
-// 	// 	printf("%x %x %x %x %x %x %x %x\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
-// 	// 	ft_printf("%x %x %x %x %x %x %x %x\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
-// 	// 	printf("%X %X %X %X %X %X %X %X\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
-// 	// 	ft_printf("%X %X %X %X %X %X %X %X\n", 0xC0, 0xC0, 0x61, 0x62, 0x63, 0x31, 0x32, 0x33);
-
-// 	// printf(" %i ", 0);
-// 	// ft_printf(" %i ", 0);
-// 	// printf(" %i ", -1);
-// 	// ft_printf(" %i ", -1);
-// 	// printf(" %i ", 1);
-// 	// printf(" %i ", 9);
-// 	// printf(" %i ", 10);
-// 	// printf(" %i ", 11);
-// 	// printf(" %i ", 15);
-// 	// printf(" %i ", 16);
-// 	// printf(" %i ", 17);
-// 	// printf(" %i ", 99);
-// 	// printf(" %i ", 100);
-// 	// printf(" %i ", 101);
-// 	// printf(" %i ", -9);
-// 	// printf(" %i ", -10);
-// 	// printf(" %i ", -11);
-// 	// printf(" %i ", -14);
-// 	// printf(" %i ", -15);
-// 	// printf(" %i ", -16);
-// 	// printf(" %i ", -99);
-// 	// printf(" %i ", -100);
-// 	// ft_printf(" %i ", -100);
-// 	// printf(" %i ", -101);
-// 	// print(" %i ", INT_MAX);
-// 	// print(" %i ", INT_MIN);
-// 	// print(" %i ", LONG_MAX);
-// 	// print(" %i ", LONG_MIN);
-// 	// print(" %i ", UINT_MAX);
-// 	// print(" %i ", ULONG_MAX);
-// 	// print(" %i ", 9223372036854775807LL);
-// 	// print(" %i %i %i %i %i %i %i", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
-// }
+int	main(void)
+{
+	nbr(10);
+}
