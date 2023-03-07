@@ -1,5 +1,5 @@
 
-SRCS			= ft_printf.c
+SRCS			= putstr.c ft_printf.c
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc

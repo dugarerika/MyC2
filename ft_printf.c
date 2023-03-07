@@ -3,35 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:12:39 by etavera-          #+#    #+#             */
-/*   Updated: 2023/03/02 10:03:45 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/03/07 09:04:48 by erikadugar       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "ft_printf.h"
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	r;
-
-	r = 0;
-	while (str[r] != '\0')
-	{
-		r++;
-	}
-	return (r);
-}
-
-int	putstr(char const *str)
-{
-	if (str == NULL)
-		return (write(1, "(null)", 6));
-	else
-		return (write(1, str, ft_strlen(str)));
-}
 
 static size_t	i_digits(int n)
 {
@@ -48,7 +29,30 @@ static size_t	i_digits(int n)
 	return (digits);
 }
 
-int	ft_putnbr_fd(int a, int fd)
+int	putunsigned(unsigned int a)
+{
+	int	c;
+
+	if (a < 0)
+	{
+		write(1, "-", 1);
+		putunsigned(-a);
+	}
+	else if (a >= 0 && a <= 9)
+	{
+		c = a + '0';
+		write(1, &c, 1);
+	}
+	else
+	{
+		c = (a % 10) + '0';
+		putunsigned(a / 10);
+		write(1, &c, 1);
+	}
+	return (i_digits(a));
+}
+
+int	putnbr_fd(int a, int fd)
 {
 	int	c;
 
@@ -56,12 +60,12 @@ int	ft_putnbr_fd(int a, int fd)
 	{
 		write(fd, "-", 1);
 		write(fd, "2", 1);
-		ft_putnbr_fd(147483648, fd);
+		putnbr_fd(147483648, fd);
 	}
 	else if (a < 0)
 	{
 		write(fd, "-", 1);
-		ft_putnbr_fd(-a, fd);
+		putnbr_fd(-a, fd);
 	}
 	else if (a >= 0 && a <= 9)
 	{
@@ -71,7 +75,7 @@ int	ft_putnbr_fd(int a, int fd)
 	else
 	{
 		c = (a % 10) + '0';
-		ft_putnbr_fd(a / 10, fd);
+		putnbr_fd(a / 10, fd);
 		write(fd, &c, 1);
 	}
 	return (i_digits(a));
@@ -81,7 +85,7 @@ void	hex(unsigned int d, char base)
 {
 	char	mod;
 	char	*acum;
-	int	i;
+	int i;
 	int	r;
 
 	i = -1;
@@ -94,7 +98,7 @@ void	hex(unsigned int d, char base)
 	}
 	acum = malloc(i);
 	if(d == 0)
-		ft_putnbr_fd(0,1);
+		putnbr_fd(0,1);
 	while (d > 0)
 	{
 
@@ -102,9 +106,16 @@ void	hex(unsigned int d, char base)
 		if (mod <= 15 && mod >= 10)
 		{
 			if (base == 'X')
+			{
+				write(1, "0X", 1);
 				mod = mod + 55;
+			}
+				
 			else if (base == 'x')
+						{
+				write(1, "0x", 1);
 				mod = mod + 87;
+			}
 			acum[i] = mod;
 			i--;
 		}
@@ -141,7 +152,7 @@ void	put_oct(int d)
 		d /= 8;
 		i *=10;
 	}
-	ft_putnbr_fd(octal, 1);
+	putnbr_fd(octal, 1);
 }
 
 void	ft_str_is_character(char str)
@@ -151,7 +162,7 @@ void	ft_str_is_character(char str)
 	result = 1;
 		if (str >= '0' && str <= '9')
 		{
-			ft_putnbr_fd((int)str, 1);
+			putnbr_fd((int)str, 1);
 		}
 		else
 		{
@@ -196,22 +207,22 @@ int	ft_check_specifier(const char spcr, va_list ptr)
 {
 	char c;
 	if (spcr == 'i' || spcr == 'd')
-		return(ft_putnbr_fd(va_arg(ptr, int), 1));
+		return (putnbr_fd(va_arg(ptr, int), 1));
 	else if (spcr == 'c')
 	{
 		c = va_arg(ptr, int);
-		return(write(1, &c,1));
+		return (write(1, &c,1));
 	}
 	else if (spcr == 's')
-		return(putstr(va_arg(ptr, char *)));
+		return (putstr(va_arg(ptr, char *)));
 	else if (spcr == 'p')
 		write(1, "pointer address", 11);
 	else if (spcr == 'u')
-		return(ft_putnbr_fd(va_arg(ptr, int), 1));
+		return (putunsigned(va_arg(ptr, unsigned int)));
 	else if (spcr == 'x' || spcr == 'X')
-		return(put_hex(va_arg(ptr, unsigned int), spcr));
+		return (put_hex(va_arg(ptr, unsigned int), spcr));
 	else if (spcr == '%')
-		return(write (1, "%", 1));
+		return (write (1, "%", 1));
 	return (0);
 }
 
@@ -244,9 +255,5 @@ int ft_printf(const char *fstr, ...)
 
 // int	main(void)
 // {
-// 	// printf(" %d ", -2147483647);
-// 	ft_printf(" %d ", -21474);
-// 	// nbr(-2147483647);
-// 	// ft_putnbr_fd(-2147483647, 1);
-
+// 	hex(90, 'X');
 // }

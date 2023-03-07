@@ -20,5 +20,8 @@
 
 int ft_printf(const char *fstr, ...);
 int	ft_putstr(char const *str);
-int ft_putnbr_fd(int a, int fd);
+int   putnbr_fd(int a, int fd);
+int   putstr(char const *str);
+int   put_hex(unsigned int d, char base);
+
 #endif
