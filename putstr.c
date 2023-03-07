@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   putstr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
+/*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:58:13 by erikadugar        #+#    #+#             */
-/*   Updated: 2023/03/03 18:02:40 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/07 11:46:30 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h" 
+#include "ft_printf.h"
 
 int	ft_strlen(const char *str)
 {

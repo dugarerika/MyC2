@@ -1,5 +1,5 @@
 
-SRCS			= putstr.c ft_printf.c
+SRCS			= putstr.c putnbr.c putunsigned.c ft_printf.c
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
@@ -13,7 +13,7 @@ all:			$(NAME)
 $(NAME):		$(OBJS)
 				ar rcs $(NAME) $(OBJS)
 
-clean:		
+clean:
 				$(RM) $(OBJS)
 
 fclean:			clean
