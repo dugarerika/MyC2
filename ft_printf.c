@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:12:39 by etavera-          #+#    #+#             */
-/*   Updated: 2023/03/07 11:55:11 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:33:31 by erikadugar       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static size_t	h_digits(unsigned int n)
+{
+	size_t	digits;
+
+	digits = 0;
+	if (n == 0)
+		return (1);
+	while (n != 0)
+	{
+		digits += 1;
+		n /= 16;
+	}
+	return (digits);
+}
 
 void	hex(unsigned int d, char base)
 {
@@ -29,41 +44,44 @@ void	hex(unsigned int d, char base)
 	}
 	acum = malloc(i);
 	if (d == 0)
-		putnbr(0, 1);
-	while (d > 0)
+		putunsigned(d, 1);
+	else
 	{
-		mod = d % 16;
-		if (mod <= 15 && mod >= 10)
+		while (d > 0)
 		{
-			if (base == 'X')
+			mod = d % 16;
+			if (mod <= 15 && mod >= 10)
 			{
-				write(1, "0X", 1);
-				mod = mod + 55;
+				if (base == 'X')
+				{
+					// write(1, "0X", 1);
+					mod = mod + 55;
+				}
+				else if (base == 'x')
+				{
+					// write(1, "0x", 1);
+					mod = mod + 87;
+				}
+				acum[i] = mod;
+				i--;
 			}
-			else if (base == 'x')
+			else if (mod <= 9)
 			{
-				write(1, "0x", 1);
-				mod = mod + 87;
+				mod = mod + 48;
+				acum[i] = mod;
+				i--;
 			}
-			acum[i] = mod;
-			i--;
+			d = d / 16;
 		}
-		else if (mod <= 9)
-		{
-			mod = mod + 48;
-			acum[i] = mod;
-			i--;
-		}
-		d = d / 16;
+		putstr(acum);
 	}
-	putstr(acum);
 	free(acum);
 }
 
 int	put_hex(unsigned int d, char base)
 {
 	hex(d, base);
-	return (d);
+	return (h_digits(d));
 }
 
 
