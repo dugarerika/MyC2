@@ -9,7 +9,7 @@
 /*   Updated: 2023/03/07 11:46:30 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+6tgrfd
 #include "ft_printf.h"
 
 int	ft_strlen(const char *str)
