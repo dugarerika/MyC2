@@ -6,23 +6,23 @@
 /*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:12:39 by etavera-          #+#    #+#             */
-/*   Updated: 2023/03/09 11:45:26 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/09 13:32:45 by erikadugar       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_strlen(const char *str)
-{
-	int	r;
+// static int	ft_strlen(const char *str)
+// {
+// 	int	r;
 
-	r = 0;
-	while (str[r] != '\0')
-	{
-		r++;
-	}
-	return (r);
-}
+// 	r = 0;
+// 	while (str[r] != '\0')
+// 	{
+// 		r++;
+// 	}
+// 	return (r);
+// }
 
 char	*rev(char *tab)
 {
