@@ -3,26 +3,140 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
+/*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:12:39 by etavera-          #+#    #+#             */
-/*   Updated: 2023/03/09 13:32:45 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/09 15:23:49 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+# include <stdarg.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
-// static int	ft_strlen(const char *str)
-// {
-// 	int	r;
+void	ft_bzero(void *str, unsigned int n)
+{
+	unsigned int	i;
+	unsigned char	*p;
 
-// 	r = 0;
-// 	while (str[r] != '\0')
-// 	{
-// 		r++;
-// 	}
-// 	return (r);
-// }
+	p = str;
+	i = 0;
+	while (i < n)
+	{
+		p[i] = 0;
+		i++;
+	}
+}
+
+int	ft_strlen(const char *str)
+{
+	int	r;
+
+	r = 0;
+	while (str[r] != '\0')
+	{
+		r++;
+	}
+	return (r);
+}
+
+int	putstr(char const *str)
+{
+	if (str == NULL)
+		return (write(1, "(null)", 6));
+	else
+		return (write(1, str, ft_strlen(str)));
+}
+
+size_t	i_digits(int n)
+{
+	size_t	digits;
+
+	digits = 0;
+	if (n <= 0)
+		digits += 1;
+	while (n != 0)
+	{
+		n /= 10;
+		digits += 1;
+	}
+	return (digits);
+}
+
+int	putnbr(int a, int fd)
+{
+	int	c;
+
+	if (a == -2147483648)
+	{
+		write(fd, "-", 1);
+		write(fd, "2", 1);
+		putnbr(147483648, fd);
+	}
+	else if (a < 0)
+	{
+		write(fd, "-", 1);
+		putnbr(-a, fd);
+	}
+	else if (a >= 0 && a <= 9)
+	{
+		c = a + '0';
+		write(fd, &c, 1);
+	}
+	else
+	{
+		c = (a % 10) + '0';
+		putnbr(a / 10, fd);
+		write(fd, &c, 1);
+	}
+	return (i_digits(a));
+}
+
+
+size_t	i_digitsun(unsigned int n)
+{
+	size_t	digits;
+
+	digits = 0;
+	if (n <= 0)
+		digits += 1;
+	while (n != 0)
+	{
+		n /= 10;
+		digits += 1;
+	}
+	return (digits);
+}
+
+int	putunsigned(unsigned int a, int fd)
+{
+	int	c;
+
+	if (a == 2147483648)
+	{
+		write(fd, "2", 1);
+		putunsigned(147483648, fd);
+	}
+	else if (a < 0)
+	{
+		write(fd, "-", 1);
+		putunsigned(-a, fd);
+	}
+	else if (a >= 0 && a <= 9)
+	{
+		c = a + '0';
+		write(fd, &c, 1);
+	}
+	else
+	{
+		c = (a % 10) + '0';
+		putunsigned(a / 10, fd);
+		write(fd, &c, 1);
+	}
+	return (i_digitsun(a));
+}
+
 
 char	*rev(char *tab)
 {
@@ -64,21 +178,19 @@ void	hex(unsigned int d, char base)
 	int		i;
 
 	i = 0;
-	acum = NULL;
-	acum = malloc(i);
+	acum = malloc(h_digits(d));
+
 	if (d == 0)
 		putunsigned(d, 1);
 	else
 	{
-		while (d > 0)
+		while (d > 0 && acum[i] != '\0')
 		{
 			mod = d % 16;
 			if (mod <= 15 && mod >= 10)
 			{
 				if (base == 'X')
-				{
 					mod = mod + 55;
-				}
 				else if (base == 'x')
 					mod = mod + 87;
 				acum[i] = mod;
@@ -155,15 +267,83 @@ int	ft_printf(const char *fstr, ...)
 	return (j);
 }
 
-// int	main(void)
-// {
-// 	printf(" %u ", -9);
-// 	printf(" %u ", -10);
-// 	printf(" %u ", -11);
-// 	printf(" %u ", -14);
-// 	printf(" %u ", -15);
-// 	printf(" %u ", -16);
-// 	printf(" %u ", -99);
-// 	printf(" %u ", -100);
-// 	printf(" %u ", -101);
-// }
+int	main(void)
+{
+	printf("system -42: %x \n", -42);
+	ft_printf("mine -42: %x \n", -42);
+	printf("system 42: %x \n", 42);
+	ft_printf("mine 42: %x \n", 42);
+	printf("system 0: %x \n", 0);
+	ft_printf("mine 0: %x \n", 0);
+	printf("system 1: %x \n", 1);
+	ft_printf("mine 1: %x \n", 1);
+
+// printf("system: %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+// ft_printf("mine  : %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+// printf("system: %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%%\n", 'A', "42", 42, 42 ,42 , 42, 42);
+// ft_printf("mine  : %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%%\n", 'A', "42", 42, 42 ,42 , 42, 42);
+// printf("system: %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+// ft_printf("mine  : %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+	// printf("system 0: %x \n", 0);
+	// ft_printf("mine 0: %x \n", 0);
+	// printf("system 1: %x \n", 1);
+	// ft_printf("mine 1: %x \n", 1);
+	// printf("system 9: %x \n", 9);
+	// ft_printf("mine 9: %x \n", 9);
+	// printf("system 10: %x \n", 10);
+	// ft_printf("mine 10: %x \n", 10);
+	// printf("system 11: %x \n", 11);
+	// ft_printf("mine 11: %x \n", 11);
+	// printf("system 15: %x \n", 15);
+	// ft_printf("mine 15: %x \n", 15);
+	// printf("system 16: %x \n", 16);
+	// ft_printf("mine 16: %x \n", 16);
+	// printf("system 17: %x \n", 17);
+	// ft_printf("mine 17:  %x \n", 17);
+	// printf("system 42: %x \n", 42);
+	// ft_printf("mine 42: %x \n", 42);
+	// printf("system 99: %x \n", 99);
+	// ft_printf("mine 99:  %x \n", 99);
+	// printf("system 100: %x \n", 100);
+	// ft_printf("mine 100: %x \n", 100);
+	// printf("system 101: %x \n", 101);
+	// ft_printf("mine 101: %x \n", 101);
+	// printf("system -1: %x \n", -1);
+	// ft_printf("mine -1: %x \n", -1);
+	// printf("system -2: %x \n", -2);
+	// ft_printf("mine -2: %x \n", -2);
+	// printf("system -1: %x \n", -3);
+	// ft_printf("mine -1: %x \n", -3);
+	// printf("system -1: %x \n", -4);
+	// ft_printf("mine -1: %x \n", -4);
+	// printf("system -1: %x \n", -5);
+	// ft_printf("mine -1: %x \n", -5);
+	// printf("system -9: %x \n", -9);
+	// ft_printf("mine -9: %x \n", -9);
+	// printf("system -10: %x \n", -10);
+	// ft_printf("mine -10: %x \n", -10);
+	// printf("system -11: %x \n", -11);
+	// ft_printf("mine -11: %x \n", -11);
+	// printf("system -14: %x \n", -14);
+	// ft_printf("mine -14: %x \n", -14);
+	// printf("system -15: %x \n", -15);
+	// ft_printf("mine -15: %x \n", -15);
+	// printf("system -16: %x \n", -16);
+	// ft_printf("mine -16: %x \n", -16);
+	// printf("system -16: %x \n", -17);
+	// ft_printf("mine -16: %x \n", -17);
+	// printf("system -42: %x \n", -42);
+	// ft_printf("mine -42: %x \n", -42);
+	// printf("system -99: %x \n", -99);
+	// ft_printf("mine -99: %x \n", -99);
+	// printf("system -100: %x \n", -100);
+	// ft_printf("mine -100: %x \n", -100);
+	// printf("system -101: %x \n", -101);
+	// ft_printf("mine -101: %x \n", -101);
+	// printf(" %x ", INT_MAX);
+	// printf(" %x ", INT_MIN);
+	// printf(" %x ", LONG_MAX);
+	// printf(" %x ", LONG_MIN);
+	// printf(" %x ", UINT_MAX);
+	// printf(" %x ", ULONG_MAX);
+}
