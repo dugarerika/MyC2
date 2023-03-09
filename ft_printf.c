@@ -6,11 +6,41 @@
 /*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:12:39 by etavera-          #+#    #+#             */
-/*   Updated: 2023/03/07 14:57:44 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/09 11:45:26 by erikadugar       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static int	ft_strlen(const char *str)
+{
+	int	r;
+
+	r = 0;
+	while (str[r] != '\0')
+	{
+		r++;
+	}
+	return (r);
+}
+
+char	*rev(char *tab)
+{
+	int	i;
+	int	t;
+	int size;
+
+	size = ft_strlen(tab);
+	i = 0;
+	while (i < size / 2)
+	{
+		t = tab[i];
+		tab[i] = tab[size - i - 1];
+		tab[size - i - 1] = t;
+	i++;
+	}
+	return (tab);
+}
 
 static size_t	h_digits(unsigned int n)
 {
@@ -32,16 +62,9 @@ void	hex(unsigned int d, char base)
 	char	mod;
 	char	*acum;
 	int		i;
-	int		r;
 
-	i = -1;
-	r = d;
+	i = 0;
 	acum = NULL;
-	while (r != 0)
-	{
-		r = r / 16;
-		i++;
-	}
 	acum = malloc(i);
 	if (d == 0)
 		putunsigned(d, 1);
@@ -54,26 +77,22 @@ void	hex(unsigned int d, char base)
 			{
 				if (base == 'X')
 				{
-					// write(1, "0X", 1);
 					mod = mod + 55;
 				}
 				else if (base == 'x')
-				{
-					// write(1, "0x", 1);
 					mod = mod + 87;
-				}
 				acum[i] = mod;
-				i--;
+				i++;
 			}
 			else if (mod <= 9)
 			{
 				mod = mod + 48;
 				acum[i] = mod;
-				i--;
+				i++;
 			}
 			d = d / 16;
 		}
-		putstr(acum);
+		putstr(rev(acum));
 	}
 	free(acum);
 }
