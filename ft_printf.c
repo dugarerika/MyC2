@@ -6,7 +6,7 @@
 /*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:12:39 by etavera-          #+#    #+#             */
-/*   Updated: 2023/03/11 12:16:06 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/11 14:37:00 by erikadugar       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,86 +267,86 @@ int	ft_printf(const char *fstr, ...)
 	return (j);
 }
 
-int	main(void)
-{
-	printf("system 42: %x \n", 42);
-	ft_printf("mine 42: %x \n", 42);
-	printf("system -42: %x \n", -42);
-	ft_printf("mine -42: %x \n", -42);
-	printf("system 0: %x \n", 0);
-	ft_printf("mine 0: %x \n", 0);
-	printf("system 1: %x \n", 1);
-	ft_printf("mine 1: %x \n", 1);
-	printf("system -2: %x \n", -2);
-	ft_printf("mine -2: %x \n", -2);
-	printf("system 16: %x \n", 16);
-	ft_printf("mine 16: %x \n", 16);
-printf("system: %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
-ft_printf("mine  : %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
-printf("system: %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%%\n", 'A', "42", 42, 42 ,42 , 42, 42);
-ft_printf("mine  : %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%%\n", 'A', "42", 42, 42 ,42 , 42, 42);
-printf("system: %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
-ft_printf("mine  : %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
-	// printf("system 0: %x \n", 0);
-	// ft_printf("mine 0: %x \n", 0);
-	// printf("system 1: %x \n", 1);
-	// ft_printf("mine 1: %x \n", 1);
-	// printf("system 9: %x \n", 9);
-	// ft_printf("mine 9: %x \n", 9);
-	// printf("system 10: %x \n", 10);
-	// ft_printf("mine 10: %x \n", 10);
-	// printf("system 11: %x \n", 11);
-	// ft_printf("mine 11: %x \n", 11);
-	// printf("system 15: %x \n", 15);
-	// ft_printf("mine 15: %x \n", 15);
-	// printf("system 16: %x \n", 16);
-	// ft_printf("mine 16: %x \n", 16);
-	// printf("system 17: %x \n", 17);
-	// ft_printf("mine 17:  %x \n", 17);
-	// printf("system 42: %x \n", 42);
-	// ft_printf("mine 42: %x \n", 42);
-	// printf("system 99: %x \n", 99);
-	// ft_printf("mine 99:  %x \n", 99);
-	// printf("system 100: %x \n", 100);
-	// ft_printf("mine 100: %x \n", 100);
-	// printf("system 101: %x \n", 101);
-	// ft_printf("mine 101: %x \n", 101);
-	// printf("system -1: %x \n", -1);
-	// ft_printf("mine -1: %x \n", -1);
-	// printf("system -2: %x \n", -2);
-	// ft_printf("mine -2: %x \n", -2);
-	// printf("system -1: %x \n", -3);
-	// ft_printf("mine -1: %x \n", -3);
-	// printf("system -1: %x \n", -4);
-	// ft_printf("mine -1: %x \n", -4);
-	// printf("system -1: %x \n", -5);
-	// ft_printf("mine -1: %x \n", -5);
-	// printf("system -9: %x \n", -9);
-	// ft_printf("mine -9: %x \n", -9);
-	// printf("system -10: %x \n", -10);
-	// ft_printf("mine -10: %x \n", -10);
-	// printf("system -11: %x \n", -11);
-	// ft_printf("mine -11: %x \n", -11);
-	// printf("system -14: %x \n", -14);
-	// ft_printf("mine -14: %x \n", -14);
-	// printf("system -15: %x \n", -15);
-	// ft_printf("mine -15: %x \n", -15);
-	// printf("system -16: %x \n", -16);
-	// ft_printf("mine -16: %x \n", -16);
-	// printf("system -16: %x \n", -17);
-	// ft_printf("mine -16: %x \n", -17);
-	// printf("system -42: %x \n", -42);
-	// ft_printf("mine -42: %x \n", -42);
-	// printf("system -99: %x \n", -99);
-	// ft_printf("mine -99: %x \n", -99);
-	// printf("system -100: %x \n", -100);
-	// ft_printf("mine -100: %x \n", -100);
-	// printf("system -101: %x \n", -101);
-	// ft_printf("mine -101: %x \n", -101);
-	// printf(" %x ", INT_MAX);
-	// printf(" %x ", INT_MIN);
-	// printf(" %x ", LONG_MAX);
-	// printf(" %x ", LONG_MIN);
-	// printf(" %x ", UINT_MAX);
-	// printf(" %x ", ULONG_MAX);
-}
+// int	main(void)
+// {
+// 	printf("system 42: %x \n", 42);
+// 	ft_printf("mine 42: %x \n", 42);
+// 	printf("system -42: %x \n", -42);
+// 	ft_printf("mine -42: %x \n", -42);
+// 	printf("system 0: %x \n", 0);
+// 	ft_printf("mine 0: %x \n", 0);
+// 	printf("system 1: %x \n", 1);
+// 	ft_printf("mine 1: %x \n", 1);
+// 	printf("system -2: %x \n", -2);
+// 	ft_printf("mine -2: %x \n", -2);
+// 	printf("system 16: %x \n", 16);
+// 	ft_printf("mine 16: %x \n", 16);
+// printf("system: %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+// ft_printf("mine  : %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+// printf("system: %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%%\n", 'A', "42", 42, 42 ,42 , 42, 42);
+// ft_printf("mine  : %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%%\n", 'A', "42", 42, 42 ,42 , 42, 42);
+// printf("system: %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+// ft_printf("mine  : %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+// 	// printf("system 0: %x \n", 0);
+// 	// ft_printf("mine 0: %x \n", 0);
+// 	// printf("system 1: %x \n", 1);
+// 	// ft_printf("mine 1: %x \n", 1);
+// 	// printf("system 9: %x \n", 9);
+// 	// ft_printf("mine 9: %x \n", 9);
+// 	// printf("system 10: %x \n", 10);
+// 	// ft_printf("mine 10: %x \n", 10);
+// 	// printf("system 11: %x \n", 11);
+// 	// ft_printf("mine 11: %x \n", 11);
+// 	// printf("system 15: %x \n", 15);
+// 	// ft_printf("mine 15: %x \n", 15);
+// 	// printf("system 16: %x \n", 16);
+// 	// ft_printf("mine 16: %x \n", 16);
+// 	// printf("system 17: %x \n", 17);
+// 	// ft_printf("mine 17:  %x \n", 17);
+// 	// printf("system 42: %x \n", 42);
+// 	// ft_printf("mine 42: %x \n", 42);
+// 	// printf("system 99: %x \n", 99);
+// 	// ft_printf("mine 99:  %x \n", 99);
+// 	// printf("system 100: %x \n", 100);
+// 	// ft_printf("mine 100: %x \n", 100);
+// 	// printf("system 101: %x \n", 101);
+// 	// ft_printf("mine 101: %x \n", 101);
+// 	// printf("system -1: %x \n", -1);
+// 	// ft_printf("mine -1: %x \n", -1);
+// 	// printf("system -2: %x \n", -2);
+// 	// ft_printf("mine -2: %x \n", -2);
+// 	// printf("system -1: %x \n", -3);
+// 	// ft_printf("mine -1: %x \n", -3);
+// 	// printf("system -1: %x \n", -4);
+// 	// ft_printf("mine -1: %x \n", -4);
+// 	// printf("system -1: %x \n", -5);
+// 	// ft_printf("mine -1: %x \n", -5);
+// 	// printf("system -9: %x \n", -9);
+// 	// ft_printf("mine -9: %x \n", -9);
+// 	// printf("system -10: %x \n", -10);
+// 	// ft_printf("mine -10: %x \n", -10);
+// 	// printf("system -11: %x \n", -11);
+// 	// ft_printf("mine -11: %x \n", -11);
+// 	// printf("system -14: %x \n", -14);
+// 	// ft_printf("mine -14: %x \n", -14);
+// 	// printf("system -15: %x \n", -15);
+// 	// ft_printf("mine -15: %x \n", -15);
+// 	// printf("system -16: %x \n", -16);
+// 	// ft_printf("mine -16: %x \n", -16);
+// 	// printf("system -16: %x \n", -17);
+// 	// ft_printf("mine -16: %x \n", -17);
+// 	// printf("system -42: %x \n", -42);
+// 	// ft_printf("mine -42: %x \n", -42);
+// 	// printf("system -99: %x \n", -99);
+// 	// ft_printf("mine -99: %x \n", -99);
+// 	// printf("system -100: %x \n", -100);
+// 	// ft_printf("mine -100: %x \n", -100);
+// 	// printf("system -101: %x \n", -101);
+// 	// ft_printf("mine -101: %x \n", -101);
+// 	// printf(" %x ", INT_MAX);
+// 	// printf(" %x ", INT_MIN);
+// 	// printf(" %x ", LONG_MAX);
+// 	// printf(" %x ", LONG_MIN);
+// 	// printf(" %x ", UINT_MAX);
+// 	// printf(" %x ", ULONG_MAX);
+// }
