@@ -6,7 +6,7 @@
 /*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:48:08 by erikadugar        #+#    #+#             */
-/*   Updated: 2023/03/11 14:56:29 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/11 16:11:18 by erikadugar       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ char	*rev(char *tab)
 	return (tab);
 }
 
-size_t	h_digits(unsigned int n)
+int	h_digits(unsigned int n)
 {
-	size_t	digits;
+	int	digits;
 
 	digits = 0;
 	if (n == 0)
@@ -45,20 +45,14 @@ size_t	h_digits(unsigned int n)
 	return (digits);
 }
 
-void	hex(unsigned int d, char base)
+void	hex(unsigned int d, char base, char *acum)
 {
-	char	mod;
-	char	*acum;
+   char	mod;
 	int		i;
 
 	i = 0;
-	acum = malloc(h_digits(d));
 
-	if (d == 0)
-		putunsigned(d, 1);
-	else
-	{
-		while (d > 0)
+	while (d > 0)
 		{
 			mod = d % 16;
 			if (mod <= 15 && mod >= 10)
@@ -67,24 +61,29 @@ void	hex(unsigned int d, char base)
 					mod = mod + 55;
 				else if (base == 'x')
 					mod = mod + 87;
-				acum[i] = mod;
-				i++;
+				acum[i++] = mod;
 			}
 			else if (mod <= 9)
 			{
 				mod = mod + 48;
-				acum[i] = mod;
-				i++;
+				acum[i++] = mod;
 			}
 			d = d / 16;
 		}
 		putstr(rev(acum));
-	}
-	free(acum);
 }
 
 int	put_hex(unsigned int d, char base)
 {
-	hex(d, base);
-	return (h_digits(d));
+	char	*acum;
+
+   acum = NULL;
+   acum = malloc(h_digits(d));
+   if (d == 0)
+		putunsigned(d, 1);
+	else
+		hex(d, base, acum);
+	free(acum);
+   return (h_digits(d));
 }
+
