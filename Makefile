@@ -1,5 +1,5 @@
 
-SRCS			= putstr.c putnbr.c putunsigned.c ft_printf.c
+SRCS			= putstr.c putnbr.c putunsigned.c puthex.c ft_printf.c
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
