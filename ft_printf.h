@@ -6,7 +6,7 @@
 /*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:03:09 by etavera-          #+#    #+#             */
-/*   Updated: 2023/03/12 22:04:23 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/12 22:37:43 by erikadugar       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int	putstr(char const *str);
 int	puthex(unsigned int d, char base);
 int	putunsigned(unsigned int a, int fd);
 int	ft_strlen(const char *str);
-int putpointer(unsigned long d);
+int putpointer(unsigned long long d);
 #endif

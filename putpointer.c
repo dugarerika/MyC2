@@ -6,7 +6,7 @@
 /*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:46:37 by erikadugar        #+#    #+#             */
-/*   Updated: 2023/03/12 22:17:56 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/12 22:41:09 by erikadugar       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	h_digits(unsigned int n)
 
 	digits = 2;
 	if (n == 0)
-		return (1);
+		return (3);
 	while (n != 0)
 	{
 		digits += 1;
@@ -45,7 +45,7 @@ static int	h_digits(unsigned int n)
 	return (digits) ;
 }
 
-void	ptr(unsigned long d, char *acum)
+void	ptr(unsigned long long d, char *acum)
 {
    char	mod;
 	int		i;
@@ -70,14 +70,17 @@ void	ptr(unsigned long d, char *acum)
 		putstr(rev(acum));
 }
 
-int	putpointer(unsigned long d)
+int	putpointer(unsigned long long d)
 {
 	char	*acum;
 
    acum = NULL;
    acum = malloc(h_digits(d));
    if (d == 0)
+	{
+		write(1, "0x", 2);
 		putunsigned(0, 1);
+	}
 	else
    {
 		write(1, "0x", 2);
