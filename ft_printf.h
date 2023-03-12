@@ -6,7 +6,7 @@
 /*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:03:09 by etavera-          #+#    #+#             */
-/*   Updated: 2023/03/11 14:50:09 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/12 22:04:23 by erikadugar       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	ft_printf(const char *fstr, ...);
 int	ft_putstr(char const *str);
 int	putnbr(int a, int fd);
 int	putstr(char const *str);
-int	put_hex(unsigned int d, char base);
+int	puthex(unsigned int d, char base);
 int	putunsigned(unsigned int a, int fd);
 int	ft_strlen(const char *str);
+int putpointer(unsigned long d);
 #endif

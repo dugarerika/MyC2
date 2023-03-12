@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   puthex.c                                           :+:      :+:    :+:   */
+/*   putpointer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/11 14:48:08 by erikadugar        #+#    #+#             */
-/*   Updated: 2023/03/12 13:17:44 by erikadugar       ###   ########.fr       */
+/*   Created: 2023/03/12 21:46:37 by erikadugar        #+#    #+#             */
+/*   Updated: 2023/03/12 22:17:56 by erikadugar       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*rev(char *tab)
+static char	*rev(char *tab)
 {
 	int	i;
 	int	t;
@@ -30,11 +30,11 @@ char	*rev(char *tab)
 	return (tab);
 }
 
-int	h_digits(unsigned int n)
+static int	h_digits(unsigned int n)
 {
 	int	digits;
 
-	digits = 0;
+	digits = 2;
 	if (n == 0)
 		return (1);
 	while (n != 0)
@@ -42,10 +42,10 @@ int	h_digits(unsigned int n)
 		digits += 1;
 		n /= 16;
 	}
-	return (digits);
+	return (digits) ;
 }
 
-void	hex(unsigned int d, char base, char *acum)
+void	ptr(unsigned long d, char *acum)
 {
    char	mod;
 	int		i;
@@ -57,10 +57,7 @@ void	hex(unsigned int d, char base, char *acum)
 			mod = d % 16;
 			if (mod <= 15 && mod >= 10)
 			{
-				if (base == 'X')
-					mod = mod + 55;
-				else if (base == 'x'|| base == 'p')
-					mod = mod + 87;
+				mod = mod + 87;
 				acum[i++] = mod;
 			}
 			else if (mod <= 9)
@@ -73,20 +70,19 @@ void	hex(unsigned int d, char base, char *acum)
 		putstr(rev(acum));
 }
 
-int	puthex(unsigned int d, char base)
+int	putpointer(unsigned long d)
 {
 	char	*acum;
 
    acum = NULL;
    acum = malloc(h_digits(d));
    if (d == 0)
-		putunsigned(d, 1);
+		putunsigned(0, 1);
 	else
-		hex(d, base, acum);
+   {
+		write(1, "0x", 2);
+		ptr(d, acum);
+   }
 	free(acum);
-	if (base == 'p')
-   	return (h_digits(d) + 6);
-	else
-		return (h_digits(d));
+	return (h_digits(d));
 }
-
