@@ -6,7 +6,7 @@
 /*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:12:39 by etavera-          #+#    #+#             */
-/*   Updated: 2023/03/13 09:51:32 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:04:55 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,3 @@ int	ft_printf(const char *fstr, ...)
 	va_end(ptr);
 	return (j);
 }
-
-// #include <limits.h>
-// int	main(void)
-// {
-// 	// int a = 0;
-// 	// int *b = &a;
-// 	// printf("%p\n",b);
-// 	// // ft_printf("%x\n",b);
-// 	// ft_printf("%p\n",b);
-// 	// ft_printf(" %p ", 0);
-
-// 	// printf(" %p ", -1);
-// 	// // TEST(3, print(" %p ", 15));
-// 	// // TEST(4, print(" %p ", 16));
-// 	// // TEST(5, print(" %p ", 17));
-// 	// ft_printf(" %p %p ", LONG_MIN, LONG_MAX);
-// 	ft_printf(" %p %p \n", (void *)ULONG_MAX, (void *)-ULONG_MAX);
-// 	printf(" %p %p ", (void *)ULONG_MAX, (void *)-ULONG_MAX);
-// 	// // TEST(8, print(" %p %p ", ULONG_MAX, -ULONG_MAX));
-// 	// // TEST(9, print(" %p %p ", 0, 0));
-// }
