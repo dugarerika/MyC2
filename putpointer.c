@@ -6,7 +6,7 @@
 /*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:46:37 by erikadugar        #+#    #+#             */
-/*   Updated: 2023/03/13 08:31:44 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/03/13 09:56:05 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*rev(char *tab)
 {
 	int	i;
 	int	t;
-	int size;
+	int	size;
 
 	size = ft_strlen(tab);
 	i = 0;
@@ -61,51 +61,46 @@ static int	h_digits(unsigned long long n)
 		digits += 1;
 		n /= 16;
 	}
-	return (digits) ;
+	return (digits);
 }
 
 void	ptr(unsigned long long d, char *acum)
 {
-   char	mod;
+	char	mod;
 	int		i;
 
 	i = 0;
-  	acum = ft_calloc(h_digits(d), 1);
+	acum = ft_calloc(h_digits(d), 1);
 	while (d > 0)
+	{
+		mod = d % 16;
+		if (mod <= 15 && mod >= 10)
 		{
-			mod = d % 16;
-			if (mod <= 15 && mod >= 10)
-			{
-				mod = mod + 87;
-				acum[i++] = mod;
-			}
-			else if (mod <= 9)
-			{
-				mod = mod + 48;
-				acum[i++] = mod;
-			}
-			d = d / 16;
+			mod = mod + 87;
+			acum[i++] = mod;
 		}
-		putstr(rev(acum));
-		free(acum);
+		else if (mod <= 9)
+		{
+			mod = mod + 48;
+			acum[i++] = mod;
+		}
+		d = d / 16;
+	}
+	putstr(rev(acum));
+	free(acum);
 }
 
 int	putpointer(unsigned long long d)
 {
 	char	*acum;
 
-   acum = NULL;
-   acum = ft_calloc(h_digits(d), 1);
-   if (d == 0)
-	{
-		write(1, "0x", 2);
+	acum = NULL;
+	acum = ft_calloc(h_digits(d), 1);
+	write(1, "0x", 2);
+	if (d == 0)
 		putunsigned(0, 1);
-	}
 	else
-   {
-		write(1, "0x", 2);
 		ptr(d, acum);
-   }
 	free(acum);
 	return (h_digits(d));
 }
