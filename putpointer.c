@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   putpointer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
+/*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:46:37 by erikadugar        #+#    #+#             */
-/*   Updated: 2023/03/12 22:41:09 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/13 06:15:24 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	putpointer(unsigned long long d)
 	char	*acum;
 
    acum = NULL;
-   acum = malloc(h_digits(d));
+   acum = calloc(h_digits(d), 1);
    if (d == 0)
 	{
 		write(1, "0x", 2);

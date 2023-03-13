@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   puthex.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
+/*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:48:08 by erikadugar        #+#    #+#             */
-/*   Updated: 2023/03/12 13:17:44 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/13 06:17:40 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	puthex(unsigned int d, char base)
 	char	*acum;
 
    acum = NULL;
-   acum = malloc(h_digits(d));
+   acum = calloc(h_digits(d),1);
    if (d == 0)
 		putunsigned(d, 1);
 	else
