@@ -6,11 +6,30 @@
 /*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:46:37 by erikadugar        #+#    #+#             */
-/*   Updated: 2023/03/13 06:15:24 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/03/13 08:31:44 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static void	*ft_calloc(size_t count, size_t size)
+{
+	char	*p;
+	size_t	i;
+
+	i = 0;
+	if (count >= SIZE_MAX || size >= SIZE_MAX)
+		return (NULL);
+	p = malloc(count * size);
+	if (p == NULL)
+		return ((void *) p);
+	while (i < count * size)
+	{
+		p[i] = '\0';
+		i++;
+	}
+	return (p);
+}
 
 static char	*rev(char *tab)
 {
@@ -30,7 +49,7 @@ static char	*rev(char *tab)
 	return (tab);
 }
 
-static int	h_digits(unsigned int n)
+static int	h_digits(unsigned long long n)
 {
 	int	digits;
 
@@ -51,7 +70,7 @@ void	ptr(unsigned long long d, char *acum)
 	int		i;
 
 	i = 0;
-
+  	acum = ft_calloc(h_digits(d), 1);
 	while (d > 0)
 		{
 			mod = d % 16;
@@ -68,6 +87,7 @@ void	ptr(unsigned long long d, char *acum)
 			d = d / 16;
 		}
 		putstr(rev(acum));
+		free(acum);
 }
 
 int	putpointer(unsigned long long d)
@@ -75,7 +95,7 @@ int	putpointer(unsigned long long d)
 	char	*acum;
 
    acum = NULL;
-   acum = calloc(h_digits(d), 1);
+   acum = ft_calloc(h_digits(d), 1);
    if (d == 0)
 	{
 		write(1, "0x", 2);

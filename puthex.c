@@ -6,13 +6,32 @@
 /*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:48:08 by erikadugar        #+#    #+#             */
-/*   Updated: 2023/03/13 06:17:40 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/03/13 07:48:06 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*rev(char *tab)
+static void	*ft_calloc(size_t count, size_t size)
+{
+	char	*p;
+	size_t	i;
+
+	i = 0;
+	if (count >= SIZE_MAX || size >= SIZE_MAX)
+		return (NULL);
+	p = malloc(count * size);
+	if (p == NULL)
+		return ((void *) p);
+	while (i < count * size)
+	{
+		p[i] = '\0';
+		i++;
+	}
+	return (p);
+}
+
+static char	*rev(char *tab)
 {
 	int	i;
 	int	t;
@@ -51,7 +70,7 @@ void	hex(unsigned int d, char base, char *acum)
 	int		i;
 
 	i = 0;
-
+	acum = ft_calloc(h_digits(d),1);
 	while (d > 0)
 		{
 			mod = d % 16;
@@ -71,6 +90,7 @@ void	hex(unsigned int d, char base, char *acum)
 			d = d / 16;
 		}
 		putstr(rev(acum));
+	free(acum);
 }
 
 int	puthex(unsigned int d, char base)
@@ -78,7 +98,7 @@ int	puthex(unsigned int d, char base)
 	char	*acum;
 
    acum = NULL;
-   acum = calloc(h_digits(d),1);
+   acum = ft_calloc(h_digits(d),1);
    if (d == 0)
 		putunsigned(d, 1);
 	else
