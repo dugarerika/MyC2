@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   putstr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erikadugar <erikadugar@student.42.fr>      +#+  +:+       +#+        */
+/*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:58:13 by erikadugar        #+#    #+#             */
-/*   Updated: 2023/03/09 06:24:16 by erikadugar       ###   ########.fr       */
+/*   Updated: 2023/03/13 12:28:52 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_strlen(const char *str)
 	return (r);
 }
 
-int	putstr(char const *str)
+int	putstr(const char *str)
 {
 	if (str == NULL)
 		return (write(1, "(null)", 6));

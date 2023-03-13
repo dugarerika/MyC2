@@ -6,7 +6,7 @@
 /*   By: etavera- <etavera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:03:09 by etavera-          #+#    #+#             */
-/*   Updated: 2023/03/13 09:50:54 by etavera-         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:28:35 by etavera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <stdio.h>
 
 int	ft_printf(const char *fstr, ...);
-int	ft_putstr(char const *str);
+int	ft_putstr(const char *str);
 int	putnbr(int a, int fd);
-int	putstr(char const *str);
+int	putstr(const char *str);
 int	puthex(unsigned int d, char base);
 int	putunsigned(unsigned int a, int fd);
 int	ft_strlen(const char *str);
